@@ -1,4 +1,3 @@
-/* client/src/styles/components/ApiDocs.css */
 .api-docs-container {
   background-color: var(--white);
   border-radius: var(--border-radius);
@@ -17,6 +16,7 @@
   display: flex;
   gap: 1rem;
   margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .api-docs-link {
@@ -38,4 +38,15 @@
 
 .api-docs-link:active {
   transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+  .api-links {
+    flex-direction: column;
+  }
+  
+  .api-docs-link {
+    width: 100%;
+    text-align: center;
+  }
 }
