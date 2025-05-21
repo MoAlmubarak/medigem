@@ -4,16 +4,21 @@
   --secondary-color: #67AE6E;
   --accent-color: #90C67C;
   --background-highlight: #E1EEBC;
-  --text-color: #2a3a36;
+  --background-gradient: linear-gradient(135deg, #e6f6f1 0%, #e1eebc 100%);
+  --text-color: #22332e;
   --text-secondary: #546854;
   --light-gray: #f7faf5;
   --medium-gray: #e8efe6;
   --dark-gray: #6c7f6c;
   --white: #ffffff;
-  --shadow: 0 4px 12px rgba(50, 142, 110, 0.1);
-  --border-radius: 14px;
+  --shadow: 0 6px 24px rgba(50, 142, 110, 0.13);
+  --shadow-hover: 0 8px 32px rgba(50, 142, 110, 0.18);
+  --border-radius: 18px;
+  --border-radius-sm: 10px;
   --font-main: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --warning-color: #e05757;
+  --success-color: #67AE6E;
+  --transition: 0.25s cubic-bezier(.4,0,.2,1);
 }
 
 * {
@@ -25,135 +30,223 @@
 body {
   font-family: var(--font-main);
   color: var(--text-color);
-  background-color: var(--light-gray);
-  line-height: 1.6;
+  background: var(--background-gradient);
+  min-height: 100vh;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.4s;
 }
 
 .App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 1;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .App-header {
   text-align: center;
-  padding: 1.5rem 0 2rem;
+  padding: 2.5rem 0 2.5rem;
+  background: linear-gradient(90deg, var(--primary-light) 0%, var(--background-highlight) 100%);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  box-shadow: 0 2px 12px rgba(50, 142, 110, 0.07);
+  margin-bottom: 2rem;
 }
 
 .App-header h1 {
   color: var(--primary-color);
-  font-size: 2.75rem;
+  font-size: 3.1rem;
   margin-bottom: 0.5rem;
-  letter-spacing: -0.5px;
-  font-weight: 700;
+  letter-spacing: -1px;
+  font-weight: 800;
   display: inline-flex;
   align-items: center;
+  gap: 0.75rem;
+  text-shadow: 0 2px 8px rgba(50, 142, 110, 0.07);
 }
 
 .App-header h1::before {
   content: "💊";
-  margin-right: 12px;
-  font-size: 2.25rem;
+  margin-right: 10px;
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 2px #e1eebc);
 }
 
 .App-header p {
   color: var(--text-secondary);
-  font-size: 1.1rem;
-  max-width: 80%;
+  font-size: 1.18rem;
+  max-width: 75%;
   margin: 0 auto;
+  opacity: 0.92;
+  font-weight: 500;
 }
 
 .app-intro {
-  background-color: var(--background-highlight);
-  padding: 1.25rem;
-  border-radius: var(--border-radius);
-  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, var(--background-highlight) 60%, var(--primary-light) 100%);
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 2rem;
   text-align: center;
   color: var(--text-secondary);
-  font-size: 1.05rem;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(144, 198, 124, 0.3);
+  font-size: 1.13rem;
+  box-shadow: 0 2px 10px rgba(144, 198, 124, 0.08);
+  border: 1.5px solid rgba(144, 198, 124, 0.22);
+  font-weight: 500;
+  transition: box-shadow var(--transition);
+}
+
+.app-intro:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 }
 
 footer {
   text-align: center;
-  padding: 1.5rem 0;
-  font-size: 0.9rem;
+  padding: 2rem 0 1.5rem 0;
+  font-size: 1rem;
   color: var(--dark-gray);
   margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.7rem;
+  background: var(--primary-light);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  box-shadow: 0 -2px 12px rgba(50, 142, 110, 0.06);
 }
 
 .copyright {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   opacity: 0.7;
+  letter-spacing: 0.2px;
 }
 
-/* Add these styles to your client/src/styles/App.css file */
-
 .developer-section {
-  background-color: var(--white);
+  background: linear-gradient(100deg, var(--white) 70%, var(--primary-light) 100%);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
-  padding: 1.5rem;
-  margin: 2rem 0;
-  border: 1px solid var(--medium-gray);
+  padding: 2rem 2rem 1.5rem 2rem;
+  margin: 2.5rem 0;
+  border: 1.5px solid var(--medium-gray);
+  transition: box-shadow var(--transition), border-color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.developer-section::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .developer-section h3 {
   color: var(--primary-color);
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
+  margin-bottom: 1.1rem;
+  font-size: 1.45rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
 }
 
 .developer-section p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.35rem;
   color: var(--text-secondary);
+  position: relative;
+  z-index: 1;
+  font-size: 1.08rem;
 }
 
 .api-docs-button {
   display: inline-block;
-  padding: 0.75rem 1.25rem;
-  background-color: var(--secondary-color);
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(90deg, var(--secondary-color) 70%, var(--accent-color) 100%);
   color: white;
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-sm);
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s;
+  font-weight: 700;
+  font-size: 1.08rem;
+  letter-spacing: 0.2px;
+  box-shadow: 0 2px 8px rgba(103, 174, 110, 0.13);
+  transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
-.api-docs-button:hover {
-  background-color: #599b5f;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(103, 174, 110, 0.2);
+.api-docs-button:hover,
+.api-docs-button:focus {
+  background: linear-gradient(90deg, #599b5f 70%, #90c67c 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(103, 174, 110, 0.22);
 }
 
 .api-docs-button:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.98);
 }
 
 footer a {
   color: var(--dark-gray);
   text-decoration: none;
   border-bottom: 1px dotted var(--dark-gray);
-  transition: color 0.2s;
+  transition: color var(--transition), border-bottom-color var(--transition);
+  font-weight: 500;
 }
 
-footer a:hover {
+footer a:hover,
+footer a:focus {
   color: var(--primary-color);
   border-bottom-color: var(--primary-color);
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .App {
+    padding: 1rem 0.5rem;
+    max-width: 100vw;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0;
+  }
+  .App-header {
+    padding: 1.2rem 0 1.2rem;
+    border-radius: 0;
+    font-size: 2.1rem;
+  }
+  .app-intro {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    font-size: 1rem;
+  }
+  .developer-section {
+    padding: 1.1rem 0.7rem 1rem 0.7rem;
+    margin: 1.2rem 0;
+    border-radius: var(--border-radius-sm);
+  }
+  footer {
+    padding: 1rem 0 1rem 0;
+    border-radius: 0 0 10px 10px;
+    font-size: 0.95rem;
+  }
 }
