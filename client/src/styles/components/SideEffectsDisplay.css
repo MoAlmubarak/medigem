@@ -1,0 +1,107 @@
+.side-effects-container {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin: 1rem 0;
+  overflow: hidden;
+  border: 1px solid var(--medium-gray);
+}
+
+.drug-header {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drug-title h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.generic-name {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-left: 0.5rem;
+}
+
+.update-info {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  background-color: var(--light-gray);
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.tab {
+  padding: 0.8rem 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  color: var(--dark-gray);
+  transition: all 0.3s;
+}
+
+.tab:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.tab.active {
+  color: var(--primary-color);
+  font-weight: bold;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.tab-content {
+  padding: 1.5rem;
+}
+
+.tab-content h4 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.warning-text {
+  color: var(--warning-color);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.side-effects-list {
+  list-style-position: inside;
+  padding-left: 0.5rem;
+}
+
+.side-effect-item {
+  margin-bottom: 0.7rem;
+  line-height: 1.4;
+}
+
+.side-effect-item::marker {
+  color: var(--primary-color);
+}
+
+.no-data {
+  color: var(--dark-gray);
+  font-style: italic;
+}
+
+.serious-effects .side-effect-item::marker {
+  color: var(--warning-color);
+}
+
+.disclaimer {
+  background-color: #fff8e8;
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: #664d03;
+  border-top: 1px solid #ffe69c;
+}
