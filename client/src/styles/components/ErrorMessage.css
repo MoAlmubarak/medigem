@@ -1,0 +1,66 @@
+/* client/src/styles/components/ErrorMessage.css */
+.error-container {
+  display: flex;
+  padding: 1rem;
+  background-color: #fff5f5;
+  border: 1px solid #ffe5e5;
+  border-radius: var(--border-radius);
+  margin: 0.5rem 0;
+}
+
+.error-icon {
+  flex-shrink: 0;
+  margin-right: 1rem;
+  color: var(--warning-color);
+}
+
+.error-content {
+  flex: 1;
+}
+
+.error-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--warning-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.error-message {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+}
+
+.error-suggestions {
+  margin-top: 0.75rem;
+}
+
+.suggestions-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+}
+
+.suggestions-list {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.suggestion-item {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.suggestion-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.suggestion-button:hover {
+  color: #206596;
+}

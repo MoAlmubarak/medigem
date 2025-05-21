@@ -1,6 +1,8 @@
-import React from 'react';
+// Use React.memo for components that don't need frequent re-renders
+import React, { memo } from 'react';
 
-const MessageBubble = ({ message }) => {
+const MessageBubble = memo(({ message }) => {
+  // Component logic
   const { text, sender, timestamp } = message;
   
   const formatTime = (date) => {
@@ -26,6 +28,6 @@ const MessageBubble = ({ message }) => {
       )}
     </div>
   );
-};
+});
 
 export default MessageBubble;

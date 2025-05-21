@@ -43,9 +43,20 @@ exports.fetchDrugSideEffects = async (drugName) => {
     
     return categorizedSideEffects;
   } catch (error) {
-    console.error('FDA API Error:', error);
-    throw error;
+  if (error.response) {
+    // Handle different HTTP error statuses
+    if (error.response.status === 404) {
+      throw new Error('Medication not found. Please check the spelling.');
+    } else if (error.response.status === 429) {
+      throw new Error('API rate limit exceeded. Please try again later.');
+    }
+  } else if (error.request) {
+    // Request made but no response received
+    throw new Error('Network issue. Please check your connection.');
   }
+  // Generic error
+  throw new Error(`Failed to fetch medication information: ${error.message}`);
+}
 };
 
 // Helper function to parse sections from FDA data
