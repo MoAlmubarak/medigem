@@ -6,18 +6,33 @@ const SideEffectsDisplay = ({ sideEffects }) => {
   
   const { drugInfo, sideEffects: effectsData, guidance } = sideEffects;
   
-  const renderSideEffectsList = (effects) => {
+  const renderSideEffectsList = (effects, className = '') => {
     if (!effects || effects.length === 0) {
       return <p className="no-data">No information available</p>;
     }
     
     return (
-      <ul className="side-effects-list">
+      <ul className={`side-effects-list ${className}`}>
         {effects.map((effect, index) => (
           <li key={index} className="side-effect-item">{effect}</li>
         ))}
       </ul>
     );
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString || dateString === 'Unknown') return null;
+    
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+    } catch (e) {
+      return null;
+    }
   };
   
   return (
@@ -31,7 +46,7 @@ const SideEffectsDisplay = ({ sideEffects }) => {
         </div>
         {drugInfo.lastUpdated && drugInfo.lastUpdated !== 'Unknown' && (
           <div className="update-info">
-            Last updated: {new Date(drugInfo.lastUpdated).toLocaleDateString()}
+            Updated: {formatDate(drugInfo.lastUpdated)}
           </div>
         )}
       </div>
@@ -40,30 +55,38 @@ const SideEffectsDisplay = ({ sideEffects }) => {
         <button 
           className={`tab ${activeTab === 'common' ? 'active' : ''}`}
           onClick={() => setActiveTab('common')}
+          aria-selected={activeTab === 'common'}
+          role="tab"
         >
           Common Side Effects
         </button>
         <button 
           className={`tab ${activeTab === 'serious' ? 'active' : ''}`}
           onClick={() => setActiveTab('serious')}
+          aria-selected={activeTab === 'serious'}
+          role="tab"
         >
           Serious Side Effects
         </button>
         <button 
           className={`tab ${activeTab === 'interactions' ? 'active' : ''}`}
           onClick={() => setActiveTab('interactions')}
+          aria-selected={activeTab === 'interactions'}
+          role="tab"
         >
           Interactions
         </button>
         <button 
           className={`tab ${activeTab === 'guidance' ? 'active' : ''}`}
           onClick={() => setActiveTab('guidance')}
+          aria-selected={activeTab === 'guidance'}
+          role="tab"
         >
           When to Consult
         </button>
       </div>
       
-      <div className="tab-content">
+      <div className="tab-content" role="tabpanel">
         {activeTab === 'common' && (
           <div className="common-effects">
             <h4>Common Side Effects</h4>
@@ -75,23 +98,25 @@ const SideEffectsDisplay = ({ sideEffects }) => {
           <div className="serious-effects">
             <h4>Serious Side Effects</h4>
             <p className="warning-text">
-              Contact a healthcare provider immediately if you experience any of these effects:
+              <strong>Warning:</strong> Contact a healthcare provider immediately if you experience any of these effects.
             </p>
-            {renderSideEffectsList(effectsData.serious)}
+            {renderSideEffectsList(effectsData.serious, 'serious-list')}
           </div>
         )}
         
         {activeTab === 'interactions' && (
           <div className="interactions">
             <h4>Drug Interactions</h4>
-            {renderSideEffectsList(effectsData.interactions)}
+            {renderSideEffectsList(effectsData.interactions, 'interactions-list')}
           </div>
         )}
         
         {activeTab === 'guidance' && (
           <div className="guidance">
             <h4>When to Consult a Healthcare Provider</h4>
-            <p>{guidance.whenToConsult || 'Consult with a healthcare provider before use if you have any concerns.'}</p>
+            <div className="guidance-content">
+              <p>{guidance.whenToConsult || 'Consult with a healthcare provider before use if you have any concerns.'}</p>
+            </div>
           </div>
         )}
       </div>

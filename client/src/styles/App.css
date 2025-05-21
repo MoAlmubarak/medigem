@@ -1,16 +1,19 @@
 :root {
-  --primary-color: #2e7bb8;
-  --primary-light: #e8f4fd;
-  --accent-color: #52b69a;
-  --warning-color: #e63946;
-  --text-color: #333333;
-  --light-gray: #f5f5f5;
-  --medium-gray: #e0e0e0;
-  --dark-gray: #757575;
+  --primary-color: #328E6E;
+  --primary-light: #e6f6f1;
+  --secondary-color: #67AE6E;
+  --accent-color: #90C67C;
+  --background-highlight: #E1EEBC;
+  --text-color: #2a3a36;
+  --text-secondary: #546854;
+  --light-gray: #f7faf5;
+  --medium-gray: #e8efe6;
+  --dark-gray: #6c7f6c;
   --white: #ffffff;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --border-radius: 12px;
-  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --shadow: 0 4px 12px rgba(50, 142, 110, 0.1);
+  --border-radius: 14px;
+  --font-main: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --warning-color: #e05757;
 }
 
 * {
@@ -24,6 +27,8 @@ body {
   color: var(--text-color);
   background-color: var(--light-gray);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .App {
@@ -32,23 +37,47 @@ body {
   min-height: 100vh;
   max-width: 800px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 .App-header {
   text-align: center;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 2rem;
 }
 
 .App-header h1 {
   color: var(--primary-color);
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+.App-header h1::before {
+  content: "💊";
+  margin-right: 12px;
+  font-size: 2.25rem;
 }
 
 .App-header p {
-  color: var(--dark-gray);
+  color: var(--text-secondary);
   font-size: 1.1rem;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.app-intro {
+  background-color: var(--background-highlight);
+  padding: 1.25rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(144, 198, 124, 0.3);
 }
 
 main {
@@ -59,8 +88,16 @@ main {
 
 footer {
   text-align: center;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   font-size: 0.9rem;
   color: var(--dark-gray);
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  opacity: 0.7;
 }

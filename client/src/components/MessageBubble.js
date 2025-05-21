@@ -12,6 +12,12 @@ const MessageBubble = ({ message }) => {
   
   return (
     <div className={`message-bubble ${sender}`}>
+      {sender === 'bot' && (
+        <div className="bot-indicator">
+          <span role="img" aria-label="MediGem">💊</span>
+          <span className="bot-name">MediGem</span>
+        </div>
+      )}
       <div className="message-content">
         <p>{text}</p>
       </div>

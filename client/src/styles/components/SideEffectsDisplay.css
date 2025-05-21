@@ -2,15 +2,16 @@
   background-color: var(--white);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
-  margin: 1rem 0;
+  margin: 1.25rem 0 1.5rem;
   overflow: hidden;
   border: 1px solid var(--medium-gray);
 }
 
 .drug-header {
   background-color: var(--primary-color);
+  background-image: linear-gradient(to right, var(--primary-color), var(--secondary-color));
   color: var(--white);
-  padding: 1rem;
+  padding: 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,18 +19,24 @@
 
 .drug-title h3 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
 }
 
 .generic-name {
   font-size: 1rem;
   opacity: 0.9;
   margin-left: 0.5rem;
+  font-weight: normal;
 }
 
 .update-info {
   font-size: 0.8rem;
   opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 0.7rem;
+  border-radius: 99px;
 }
 
 .tabs {
@@ -37,52 +44,76 @@
   overflow-x: auto;
   background-color: var(--light-gray);
   border-bottom: 1px solid var(--medium-gray);
+  padding: 0 0.5rem;
 }
 
 .tab {
-  padding: 0.8rem 1.2rem;
+  padding: 1rem 1.25rem;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   white-space: nowrap;
-  color: var(--dark-gray);
+  color: var(--text-secondary);
   transition: all 0.3s;
+  position: relative;
+  font-weight: 500;
 }
 
 .tab:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 .tab.active {
   color: var(--primary-color);
-  font-weight: bold;
-  border-bottom: 3px solid var(--primary-color);
+  font-weight: 600;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 .tab-content {
-  padding: 1.5rem;
+  padding: 1.75rem;
 }
 
 .tab-content h4 {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--medium-gray);
 }
 
 .warning-text {
   color: var(--warning-color);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   font-weight: 500;
+  padding: 0.8rem 1rem;
+  background-color: rgba(224, 87, 87, 0.08);
+  border-radius: 8px;
+  border-left: 4px solid var(--warning-color);
 }
 
 .side-effects-list {
-  list-style-position: inside;
-  padding-left: 0.5rem;
+  list-style-position: outside;
+  padding-left: 1.5rem;
 }
 
 .side-effect-item {
-  margin-bottom: 0.7rem;
-  line-height: 1.4;
+  margin-bottom: 0.875rem;
+  line-height: 1.5;
+  padding-left: 0.5rem;
 }
 
 .side-effect-item::marker {
@@ -92,16 +123,35 @@
 .no-data {
   color: var(--dark-gray);
   font-style: italic;
+  padding: 1rem;
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  text-align: center;
 }
 
 .serious-effects .side-effect-item::marker {
   color: var(--warning-color);
 }
 
+.interactions .side-effect-item::marker {
+  color: var(--secondary-color);
+}
+
+.guidance {
+  background-color: var(--background-highlight);
+  padding: 1.25rem;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
 .disclaimer {
-  background-color: #fff8e8;
-  padding: 1rem;
+  background-color: rgba(225, 238, 188, 0.5);
+  padding: 1.25rem;
   font-size: 0.85rem;
-  color: #664d03;
-  border-top: 1px solid #ffe69c;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--medium-gray);
+}
+
+.disclaimer strong {
+  color: var(--primary-color);
 }

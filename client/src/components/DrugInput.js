@@ -17,16 +17,28 @@ const DrugInput = ({ onSubmit, isLoading }) => {
         type="text"
         value={drugName}
         onChange={(e) => setDrugName(e.target.value)}
-        placeholder="Enter medication name (e.g., Ibuprofen)"
+        placeholder="Enter medication name (e.g., Ibuprofen, Tylenol)"
         disabled={isLoading}
         className="drug-input"
+        aria-label="Enter medication name"
       />
       <button 
         type="submit" 
         className="submit-button"
         disabled={isLoading || !drugName.trim()}
+        aria-label="Search medication"
       >
-        {isLoading ? 'Searching...' : 'Search'}
+        {isLoading ? (
+          <>
+            <span className="loading-spinner"></span>
+            Searching...
+          </>
+        ) : (
+          <>
+            <span className="search-icon">🔍</span>
+            Search
+          </>
+        )}
       </button>
     </form>
   );
