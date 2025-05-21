@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   currentMedication: null,
   searchHistory: [],
+  pendingSearches: {}, // Track ongoing searches
 };
 
 // Action types
@@ -24,20 +25,35 @@ const medicationReducer = (state, action) => {
       return {
         ...state,
         isLoading: true,
+        pendingSearches: {
+          ...state.pendingSearches,
+          [action.payload.searchId]: {
+            drugName: action.payload.drugName,
+            timestamp: new Date()
+          }
+        },
         error: null,
       };
     case SEARCH_SUCCESS:
+      // Create a new pendingSearches object without the completed search
+      const { [action.payload.searchId]: _, ...remainingSearches } = state.pendingSearches;
+      
       return {
         ...state,
-        isLoading: false,
-        currentMedication: action.payload,
+        isLoading: Object.keys(remainingSearches).length > 0, // Still loading if other searches pending
+        pendingSearches: remainingSearches,
+        currentMedication: action.payload.data,
         error: null,
       };
     case SEARCH_ERROR:
+      // Remove the failed search from pending
+      const { [action.payload.searchId]: __, ...remainingAfterError } = state.pendingSearches;
+      
       return {
         ...state,
-        isLoading: false,
-        error: action.payload,
+        isLoading: Object.keys(remainingAfterError).length > 0,
+        pendingSearches: remainingAfterError,
+        error: action.payload.error,
       };
     case CLEAR_ERROR:
       return {
@@ -94,26 +110,62 @@ export const MedicationProvider = ({ children }) => {
     }
   }, [state.searchHistory]);
 
-  // Action to search for a medication
+  // Generate a unique search ID
+  const generateSearchId = () => `search_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+  // Action to search for a medication with optimistic updates
   const searchMedication = useCallback(async (drugName) => {
-    dispatch({ type: SEARCH_START });
+    const searchId = generateSearchId();
+    
+    // Optimistically update the UI
+    dispatch({ 
+      type: SEARCH_START, 
+      payload: { 
+        searchId,
+        drugName 
+      } 
+    });
     
     try {
       const medicationData = await searchDrug(drugName);
-      dispatch({ type: SEARCH_SUCCESS, payload: medicationData });
-      dispatch({ type: ADD_TO_HISTORY, payload: { 
-        drugName,
-        brandName: medicationData.drugInfo.brandName,
-        genericName: medicationData.drugInfo.genericName,
-        timestamp: new Date()
-      }});
-      return medicationData;
+      dispatch({ 
+        type: SEARCH_SUCCESS, 
+        payload: { 
+          searchId,
+          data: medicationData 
+        } 
+      });
+      
+      dispatch({ 
+        type: ADD_TO_HISTORY, 
+        payload: { 
+          drugName,
+          brandName: medicationData.drugInfo.brandName,
+          genericName: medicationData.drugInfo.genericName,
+          timestamp: new Date()
+        }
+      });
+      
+      return {
+        searchId,
+        data: medicationData,
+        status: 'success'
+      };
     } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to search for medication';
       dispatch({ 
         type: SEARCH_ERROR, 
-        payload: error.response?.data?.message || 'Failed to search for medication'
+        payload: {
+          searchId,
+          error: errorMessage
+        } 
       });
-      throw error;
+      
+      return {
+        searchId,
+        error: errorMessage,
+        status: 'error'
+      };
     }
   }, []);
 

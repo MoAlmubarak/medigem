@@ -1,0 +1,59 @@
+/* client/src/styles/components/ErrorMessageDisplay.css */
+
+.error-message-container {
+  display: flex;
+  background-color: #fff8f8;
+  border: 1px solid #ffdbdb;
+  border-left: 4px solid var(--warning-color);
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding-right: 1rem;
+  color: var(--warning-color);
+}
+
+.error-content {
+  flex: 1;
+}
+
+.error-content h4 {
+  color: var(--warning-color);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.error-content p {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.error-suggestions {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid rgba(224, 87, 87, 0.1);
+}
+
+.error-suggestions p {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.error-suggestions ul {
+  list-style-position: inside;
+  padding-left: 0.5rem;
+}
+
+.error-suggestions li {
+  margin-bottom: 0.25rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
