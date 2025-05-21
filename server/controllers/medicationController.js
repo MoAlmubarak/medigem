@@ -1,21 +1,20 @@
+// server/controllers/medicationController.js
 const fdaService = require('../services/fdaService');
+const { BadRequestError } = require('../utils/errors');
 
-exports.getDrugSideEffects = async (req, res) => {
+exports.getDrugSideEffects = async (req, res, next) => {
   try {
     const { drugName } = req.params;
     
-    if (!drugName) {
-      return res.status(400).json({ error: 'Drug name is required' });
+    if (!drugName || drugName.trim() === '') {
+      throw new BadRequestError('Drug name is required');
     }
     
     const sideEffects = await fdaService.fetchDrugSideEffects(drugName);
     
-    return res.json(sideEffects);
+    return res.status(200).json(sideEffects);
   } catch (error) {
-    console.error('Error fetching drug side effects:', error);
-    return res.status(500).json({ 
-      error: 'Failed to fetch drug information',
-      message: error.message 
-    });
+    // Pass the error to the error handling middleware
+    next(error);
   }
 };

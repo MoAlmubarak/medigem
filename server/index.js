@@ -1,11 +1,18 @@
+// server/index.js
 const express = require('express');
 const cors = require('cors');
+const config = require('./config');
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
-const PORT = process.env.PORT || 3001;  // Changed default port to 3001
+const { port } = config;
 
-// Middleware
-app.use(cors());
+// Configure CORS with environment variables
+app.use(cors({
+  origin: config.cors.origin,
+  optionsSuccessStatus: 200
+}));
+
 app.use(express.json());
 
 // Routes
@@ -13,9 +20,13 @@ app.use('/api', require('./routes/api'));
 
 // Health check endpoint
 app.get('/', (req, res) => {
-  res.send('MediGem API is running');
+  res.send(`MediGem API is running in ${config.nodeEnv} mode`);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// Error handling middleware (must be after all routes)
+app.use(errorHandler);
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running on port ${port} in ${config.nodeEnv} mode`);
 });

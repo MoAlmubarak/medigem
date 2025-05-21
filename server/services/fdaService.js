@@ -1,24 +1,35 @@
+// server/services/fdaService.js
 const axios = require('axios');
-
-const FDA_API_BASE_URL = 'https://api.fda.gov/drug/label.json';
-const FDA_API_LIMIT = 1; // Limit to 1 result for MVP
+const config = require('../config');
+const { NotFoundError, APIError, BadRequestError } = require('../utils/errors');
 
 exports.fetchDrugSideEffects = async (drugName) => {
   try {
+    if (!drugName || drugName.trim().length < 2) {
+      throw new BadRequestError('Drug name must be at least 2 characters long');
+    }
+
+    // Build request parameters
+    const params = {
+      search: `openfda.brand_name:"${drugName}" OR openfda.generic_name:"${drugName}"`,
+      limit: config.fda.limit
+    };
+
+    // Add API key if available
+    if (config.fda.apiKey) {
+      params.api_key = config.fda.apiKey;
+    }
+
     // Query OpenFDA API for the drug
-    const response = await axios.get(`${FDA_API_BASE_URL}`, {
-      params: {
-        search: `openfda.brand_name:"${drugName}" OR openfda.generic_name:"${drugName}"`,
-        limit: FDA_API_LIMIT
-      }
-    });
+    const response = await axios.get(config.fda.baseUrl, { params });
 
     const results = response.data.results;
     
     if (!results || results.length === 0) {
-      throw new Error('No medication information found');
+      throw new NotFoundError(`No information found for medication "${drugName}"`);
     }
 
+    // Rest of your existing code...
     const medicationData = results[0];
     
     // Extract side effects information
@@ -43,12 +54,23 @@ exports.fetchDrugSideEffects = async (drugName) => {
     
     return categorizedSideEffects;
   } catch (error) {
-    console.error('FDA API Error:', error);
-    throw error;
+    // Error handling as you've updated in the previous step
+    if (error.response) {
+      if (error.response.status === 404) {
+        throw new NotFoundError(`No information found for medication "${drugName}"`);
+      } else {
+        throw new APIError(`FDA API error: ${error.message}`, error.response.status);
+      }
+    } else if (error.isOperational) {
+      throw error;
+    } else {
+      console.error('FDA API Error:', error);
+      throw new APIError('Error accessing medication database');
+    }
   }
 };
 
-// Helper function to parse sections from FDA data
+// Rest of your helper functions remain the same
 function parseSection(section) {
   if (!section) return null;
   
@@ -60,11 +82,8 @@ function parseSection(section) {
   return section;
 }
 
-// Helper function to categorize side effects by severity
 function categorizeSideEffects(data) {
-  // For the MVP, we'll return a simplified structure
-  // In a more advanced version, this would use NLP to properly categorize side effects
-  
+  // Your existing implementation
   return {
     drugInfo: {
       brandName: data.brandName,
@@ -83,14 +102,13 @@ function categorizeSideEffects(data) {
   };
 }
 
-// Helper function to extract a list of side effects from text
 function extractSideEffectsList(text) {
+  // Your existing implementation
   if (!text || text === 'Information not available') {
     return [];
   }
   
   // Simple extraction of bullet points and sentences
-  // A more advanced version would use NLP for better extraction
   let effects = [];
   
   // Split by common delimiters
