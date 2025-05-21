@@ -3,16 +3,18 @@ const axios = require('axios');
 const config = require('../config');
 const { NotFoundError, APIError, BadRequestError } = require('../utils/errors');
 
-exports.fetchDrugSideEffects = async (drugName) => {
+exports.fetchDrugSideEffects = async (drugName, options = {}) => {
   try {
-    if (!drugName || drugName.trim().length < 2) {
-      throw new BadRequestError('Drug name must be at least 2 characters long');
-    }
+    // Default options
+    const { 
+      limit = config.fda.limit, 
+      includeInteractions = false 
+    } = options;
 
     // Build request parameters
     const params = {
       search: `openfda.brand_name:"${drugName}" OR openfda.generic_name:"${drugName}"`,
-      limit: config.fda.limit
+      limit: limit
     };
 
     // Add API key if available
@@ -29,7 +31,6 @@ exports.fetchDrugSideEffects = async (drugName) => {
       throw new NotFoundError(`No information found for medication "${drugName}"`);
     }
 
-    // Rest of your existing code...
     const medicationData = results[0];
     
     // Extract side effects information
@@ -50,11 +51,11 @@ exports.fetchDrugSideEffects = async (drugName) => {
     };
 
     // Process and categorize side effects
-    const categorizedSideEffects = categorizeSideEffects(sideEffects);
+    const categorizedSideEffects = categorizeSideEffects(sideEffects, { includeInteractions });
     
     return categorizedSideEffects;
   } catch (error) {
-    // Error handling as you've updated in the previous step
+    // Error handling as improved earlier
     if (error.response) {
       if (error.response.status === 404) {
         throw new NotFoundError(`No information found for medication "${drugName}"`);
@@ -70,7 +71,39 @@ exports.fetchDrugSideEffects = async (drugName) => {
   }
 };
 
-// Rest of your helper functions remain the same
+// Update the categorizeSideEffects function to handle options
+function categorizeSideEffects(data, options = {}) {
+  const { includeInteractions = false } = options;
+  
+  const result = {
+    drugInfo: {
+      brandName: data.brandName,
+      genericName: data.genericName,
+      lastUpdated: data.lastUpdated
+    },
+    sideEffects: {
+      common: extractSideEffectsList(data.commonSideEffects),
+      serious: extractSideEffectsList(data.seriousSideEffects)
+    },
+    guidance: {
+      whenToConsult: data.whenToConsult
+    }
+  };
+  
+  // Only include interactions if specifically requested
+  if (includeInteractions) {
+    result.sideEffects.interactions = extractSideEffectsList(data.drugInteractions);
+  }
+  
+  // In development mode, include raw data for debugging
+  if (config.isDevelopment()) {
+    result.rawData = data;
+  }
+  
+  return result;
+}
+
+// Helper functions remain mostly the same
 function parseSection(section) {
   if (!section) return null;
   
@@ -82,28 +115,7 @@ function parseSection(section) {
   return section;
 }
 
-function categorizeSideEffects(data) {
-  // Your existing implementation
-  return {
-    drugInfo: {
-      brandName: data.brandName,
-      genericName: data.genericName,
-      lastUpdated: data.lastUpdated
-    },
-    sideEffects: {
-      common: extractSideEffectsList(data.commonSideEffects),
-      serious: extractSideEffectsList(data.seriousSideEffects),
-      interactions: extractSideEffectsList(data.drugInteractions)
-    },
-    guidance: {
-      whenToConsult: data.whenToConsult
-    },
-    rawData: data // Include raw data for debugging or advanced display
-  };
-}
-
 function extractSideEffectsList(text) {
-  // Your existing implementation
   if (!text || text === 'Information not available') {
     return [];
   }
