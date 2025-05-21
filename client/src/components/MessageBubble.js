@@ -1,8 +1,7 @@
-// Use React.memo for components that don't need frequent re-renders
-import React, { memo } from 'react';
+// In client/src/components/MessageBubble.js
+import React from 'react';
 
-const MessageBubble = memo(({ message }) => {
-  // Component logic
+const MessageBubble = ({ message }) => {
   const { text, sender, timestamp } = message;
   
   const formatTime = (date) => {
@@ -12,14 +11,11 @@ const MessageBubble = memo(({ message }) => {
     return new Date(date).toLocaleTimeString([], options);
   };
   
+  // Add animation class based on sender
+  const animationClass = sender === 'user' ? 'animate-slideInRight' : 'animate-slideInLeft';
+  
   return (
-    <div className={`message-bubble ${sender}`}>
-      {sender === 'bot' && (
-        <div className="bot-indicator">
-          <span role="img" aria-label="MediGem">💊</span>
-          <span className="bot-name">MediGem</span>
-        </div>
-      )}
+    <div className={`message-bubble ${sender} ${animationClass}`}>
       <div className="message-content">
         <p>{text}</p>
       </div>
@@ -28,6 +24,6 @@ const MessageBubble = memo(({ message }) => {
       )}
     </div>
   );
-});
+};
 
 export default MessageBubble;

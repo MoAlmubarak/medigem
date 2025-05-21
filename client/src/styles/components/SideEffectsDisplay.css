@@ -86,6 +86,7 @@
   padding: 1.75rem;
 }
 
+
 .tab-content h4 {
   margin-bottom: 1.25rem;
   color: var(--primary-color);
@@ -154,4 +155,72 @@
 
 .disclaimer strong {
   color: var(--primary-color);
+}
+/* In client/src/styles/components/SideEffectsDisplay.css (at the end of the file) */
+
+/* Medium screens (tablets) */
+@media screen and (max-width: 768px) {
+  .side-effects-container {
+    margin: 0.75rem 0;
+  }
+  
+  .drug-header {
+    padding: 0.8rem;
+  }
+  
+  .tab {
+    padding: 0.7rem 1rem;
+  }
+  
+  .tab-content {
+    padding: 1.2rem;
+  }
+}
+
+/* Small screens (mobile phones) */
+@media screen and (max-width: 480px) {
+  .side-effects-container {
+    margin: 0.5rem 0;
+  }
+  
+  .drug-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.7rem;
+  }
+  
+  .update-info {
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+  }
+  
+  .tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab {
+    flex: 1 0 50%;
+    text-align: center;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .tab-content {
+    padding: 1rem;
+  }
+  
+  .tab-content h4 {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .side-effect-item {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .disclaimer {
+    padding: 0.8rem;
+    font-size: 0.75rem;
+  }
 }

@@ -1,5 +1,7 @@
+// In client/src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './styles/animations.css'; // Import animations first
 import './styles/App.css';
 import App from './App';
 

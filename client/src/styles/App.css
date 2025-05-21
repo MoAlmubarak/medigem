@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --primary-color: #328E6E;
   --primary-light: #e6f6f1;
   --secondary-color: #67AE6E;
@@ -14,6 +14,38 @@
   --border-radius: 14px;
   --font-main: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --warning-color: #e05757;
+} */
+ /* Update color variables in App.css */
+:root {
+  --primary-color: #2e7bb8;  /* Keep existing */
+  --primary-light: #e8f4fd;  /* Keep existing */
+  --accent-color: #52b69a;   /* Keep existing */
+  --warning-color: #e63946;  /* Keep existing */
+  --critical-color: #d00000; /* New - for critical warnings */
+  --success-color: #38b000;  /* New - for success messages */
+  --info-color: #3a86ff;     /* New - for informational items */
+  
+  /* Improved contrast for accessibility */
+  --text-color: #333333;     /* Keep existing */
+  --dark-text: #1a1a1a;      /* New - for better contrast */
+  --light-text: #ffffff;     /* New - for text on dark backgrounds */
+  
+  /* Expanded grayscale palette */
+  --gray-100: #f8f9fa;       /* New */
+  --gray-200: #e9ecef;       /* New */
+  --gray-300: #dee2e6;       /* New */
+  --gray-400: #ced4da;       /* New */
+  --gray-500: #adb5bd;       /* New */
+  --gray-600: #6c757d;       /* New */
+  --gray-700: #495057;       /* New */
+  --gray-800: #343a40;       /* New */
+  --gray-900: #212529;       /* New */
+  
+  /* Animation variables */
+  --animation-speed-fast: 0.2s;
+  --animation-speed-normal: 0.3s;
+  --animation-speed-slow: 0.5s;
+  --transition-timing: ease-in-out;
 }
 
 
@@ -101,4 +133,44 @@ footer {
 .copyright {
   font-size: 0.85rem;
   opacity: 0.7;
+}
+
+/* In client/src/styles/App.css (at the end of the file) */
+
+/* Medium screens (tablets) */
+@media screen and (max-width: 768px) {
+  .App {
+    padding: 0.75rem;
+  }
+  
+  .App-header h1 {
+    font-size: 2rem;
+  }
+  
+  .App-header p {
+    font-size: 1rem;
+  }
+  
+  main {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Small screens (mobile phones) */
+@media screen and (max-width: 480px) {
+  .App {
+    padding: 0.5rem;
+  }
+  
+  .App-header {
+    padding: 1rem 0;
+  }
+  
+  .App-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  footer {
+    font-size: 0.8rem;
+  }
 }
