@@ -1,0 +1,41 @@
+/* client/src/styles/components/ApiDocs.css */
+.api-docs-container {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 1px solid var(--medium-gray);
+}
+
+.api-docs-container h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.api-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.api-docs-link {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.api-docs-link:hover {
+  background-color: #2a7a5d;
+  transform: translateY(-2px);
+}
+
+.api-docs-link:active {
+  transform: translateY(1px);
+}

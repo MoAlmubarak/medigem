@@ -1,0 +1,36 @@
+# server/docs/general.yaml
+tags:
+  - name: General
+    description: General information about the API
+
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for accessing protected endpoints (future feature)
+
+paths:
+  /api/v2/medications/search:
+    get:
+      summary: Search medications by name (Coming Soon)
+      description: Allows fuzzy searching of medications by name
+      tags: [Medications]
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Search query
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+          description: Maximum number of results to return
+      responses:
+        200:
+          description: List of medications matching the search query
