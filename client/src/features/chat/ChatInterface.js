@@ -1,11 +1,21 @@
 // client/src/features/chat/ChatInterface.js
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, Suspense, lazy } from 'react';
 import MessageBubble from './MessageBubble';
 import DrugInput from './DrugInput';
-import SideEffectsDisplay from '../../features/medication/SideEffectsDisplay';
 import { useChat } from '../../context/ChatContext';
 import { useMedicationSearch } from '../../hooks/useMedicationSearch';
 import '../../styles/components/ChatInterface.css';
+
+// Lazy load the SideEffectsDisplay component
+const SideEffectsDisplay = lazy(() => import('../../features/medication/SideEffectsDisplay'));
+
+// Simple loading component for Suspense fallback
+const LoadingDisplay = () => (
+  <div className="loading-message-container">
+    <div className="loading-spinner"></div>
+    <p className="loading-text">Loading medication information...</p>
+  </div>
+);
 
 const ChatInterface = () => {
   const { messages } = useChat();
@@ -28,7 +38,9 @@ const ChatInterface = () => {
           <div key={message.id}>
             <MessageBubble message={message} />
             {message.sideEffects && (
-              <SideEffectsDisplay sideEffects={message.sideEffects} />
+              <Suspense fallback={<LoadingDisplay />}>
+                <SideEffectsDisplay sideEffects={message.sideEffects} />
+              </Suspense>
             )}
           </div>
         ))}

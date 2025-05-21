@@ -149,3 +149,36 @@
   cursor: not-allowed;
   opacity: 0.7;
 }
+
+/* Add these styles to your client/src/styles/components/ChatInterface.css file */
+
+.loading-message-container {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-light);
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  border: 1px solid var(--medium-gray);
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(50, 142, 110, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 0.75rem;
+}
+
+.loading-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
