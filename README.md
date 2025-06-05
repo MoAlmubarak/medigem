@@ -31,7 +31,7 @@ MediGem is a modern web application that helps users understand Over-the-Counter
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/medigem.git
+   git clone https://github.com/MoAlmubarak/medigem.git
    cd medigem
    ```
 
