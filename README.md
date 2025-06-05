@@ -175,15 +175,6 @@ npm test
 3. Verify responsive design on different screen sizes
 4. Check search history functionality
 
-## 🛣️ Roadmap
-
-### MVP ✅
-- [x] Basic chat interface
-- [x] OpenFDA API integration
-- [x] Side effects categorization
-- [x] Search history
-- [x] Responsive design
-
 ## ⚠️ Important Disclaimers
 
 - **Educational Purpose Only**: This information is for educational purposes and should not replace professional medical advice
